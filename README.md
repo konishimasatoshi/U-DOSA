@@ -30,5 +30,18 @@
 
 Thonny のシェル(または「表示 → プロッター」)で値を見ながら `main.py` の上の方にある数値を変えてください。
 
-- 誤報が多い → `H2_RISE` や `ETH_RISE` を上げる、`HOLD_SEC` を長くする
+- 判定は TVOC(5秒平均)が `TVOC_THRESHOLD`(70ppb)以上の状態が `HOLD_SEC` 秒続いたとき
+- 誤報が多い → `TVOC_THRESHOLD` を上げる、`HOLD_SEC` を長くする
 - 気づいてくれない → それらを下げる、センサーを赤ちゃんに近づける
+
+## U-DOSA に記録を送る
+
+警報が鳴ると Supabase に記録が送られ、ブラウザのアプリ U-DOSA([web/](web/))で見られます。
+
+1. 先に [web/README.md](web/README.md) の手順で Supabase にテーブルを作る
+2. `config.py` に Wi-Fi の SSID・パスワードと、Supabase の URL・anon キーを入れる
+3. `config.py`・`uploader.py` も Pico に保存する
+
+- 検知した時点で記録を作り、においが消えたら「においが続いた時間」と TVOC の最大値・H2 / Ethanol の最大上昇量を書き足します
+- Wi-Fi やネットにつながらなくても、警報器はそのまま動きます(記録が送られないだけ)
+- config.py は空のままでも動きます
