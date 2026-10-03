@@ -1,12 +1,19 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { LoaderCircle, TriangleAlert } from "lucide-react";
+import {
+  BellRing,
+  Bug,
+  Hourglass,
+  LoaderCircle,
+  TriangleAlert,
+} from "lucide-react";
 
 import { DailyChart } from "@/components/charts/daily-chart";
 import { HourlyChart } from "@/components/charts/hourly-chart";
 import { IntervalChart } from "@/components/charts/interval-chart";
 import { ConstipationAlert } from "@/components/constipation-alert";
+import { PoopIcon } from "@/components/poop-icon";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { formatHours } from "@/lib/format";
@@ -27,11 +34,15 @@ export function DashboardPanel() {
   const tiles = [
     {
       label: "うんちの回数",
+      Icon: PoopIcon,
+      iconClass: "text-amber-700",
       value: `${stats.total}回`,
       sub: `1日平均 ${stats.perDay.toFixed(1)}回`,
     },
     {
       label: "平均の間隔",
+      Icon: Hourglass,
+      iconClass: "text-blue-700",
       value:
         stats.avgIntervalHours != null
           ? formatHours(stats.avgIntervalHours)
@@ -43,11 +54,15 @@ export function DashboardPanel() {
     },
     {
       label: "警報器が検知",
+      Icon: BellRing,
+      iconClass: "text-blue-700",
       value: `${stats.sensorCount}回`,
       sub: `手で追加 ${stats.manualCount}回`,
     },
     {
       label: "誤検知",
+      Icon: Bug,
+      iconClass: "text-red-600",
       value: `${stats.falseAlarmCount}回`,
       sub:
         stats.falseAlarmRate != null
@@ -107,8 +122,13 @@ export function DashboardPanel() {
                 key={tile.label}
                 className="space-y-1 rounded-2xl border border-gray-300 bg-white p-4 shadow-sm sm:p-5"
               >
-                <dt className="text-sm font-semibold text-gray-700">
+                <dt className="flex items-center gap-2 text-sm font-semibold text-gray-700">
                   {tile.label}
+                  {/* アイコンは見出しの文字の 1.5 倍 */}
+                  <tile.Icon
+                    className={`size-[1.5em] shrink-0 ${tile.iconClass}`}
+                    aria-hidden="true"
+                  />
                 </dt>
                 <dd className="text-2xl leading-snug font-bold text-gray-900 tabular-nums sm:text-3xl">
                   {tile.value}

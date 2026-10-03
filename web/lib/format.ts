@@ -69,3 +69,8 @@ export function formatDateKey(dateKey: string): string {
     locale: ja,
   });
 }
+
+// 符号付きの数値。例: 85 → +85、-57 → -57
+export function formatSigned(value: number): string {
+  return value > 0 ? `+${value}` : String(value);
+}

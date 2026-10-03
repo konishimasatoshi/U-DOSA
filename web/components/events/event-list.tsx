@@ -22,6 +22,7 @@ import {
   formatDateKey,
   formatDateTime,
   formatSeconds,
+  formatSigned,
   formatTime,
   toDateKey,
 } from "@/lib/format";
@@ -89,8 +90,8 @@ function EventItem({
     event.duration_sec != null &&
       `においが続いた時間 ${formatSeconds(event.duration_sec)}`,
     event.peak_tvoc != null && `TVOC ${event.peak_tvoc}ppb`,
-    event.peak_h2 != null && `H2 +${event.peak_h2}`,
-    event.peak_eth != null && `Eth +${event.peak_eth}`,
+    event.peak_h2 != null && `H2 ${formatSigned(event.peak_h2)}`,
+    event.peak_eth != null && `Eth ${formatSigned(event.peak_eth)}`,
   ].filter(Boolean);
 
   async function run(action: () => Promise<void>) {
