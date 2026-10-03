@@ -1,0 +1,10 @@
+.next
+out
+build
+node_modules
+package-lock.json
+next-env.d.ts
+types/database.types.ts
+.claude
+AGENTS.md
+CLAUDE.md
