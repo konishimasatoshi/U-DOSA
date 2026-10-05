@@ -1,6 +1,7 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 @import "tw-animate-css";
-@import "shadcn/tailwind.css";
 
 /*
  * shadcn/ui のテーマトークン。独自の色の値は定義せず、Tailwind のカラーパレット
